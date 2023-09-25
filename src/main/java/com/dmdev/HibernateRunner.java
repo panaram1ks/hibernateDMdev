@@ -63,6 +63,13 @@ public class HibernateRunner {
 //            session.saveOrUpdate(user);
 //            session.delete(user);
             User user1 = session.get(User.class, "ivan6@gmail.com");
+            user1.setUsername("ivanFlush@gmail.com");
+            session.flush();
+            session.isDirty();
+
+//            session.evict(user1); // remove object from session context
+//            session.clear(); // clean all contest
+//            session.close(); // clean session automatic
 
             session.getTransaction().commit(); // if everything is goog
 //            session.getTransaction().rollback(); // if something wrong
