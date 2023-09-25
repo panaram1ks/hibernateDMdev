@@ -1,6 +1,7 @@
 package com.dmdev.entity;
 
 
+import com.dmdev.converter.BirthdayConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,9 +22,11 @@ public class User {
     private String username;
     private String firstname;
     private String lastname;
+
+//    @Convert(converter = BirthdayConverter.class) // first var say Hibernate use this converter
     @Column(name = "birth_date")
-    private LocalDate birthDate;
-    private Integer age;
+    private Birthday birthDate;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

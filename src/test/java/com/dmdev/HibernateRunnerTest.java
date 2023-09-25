@@ -27,7 +27,6 @@ class HibernateRunnerTest {
                 .username("ivan@gmail.com")
                 .firstname("Ivan")
                 .lastname("Ivanov")
-                .birthDate(LocalDate.of(2000, 1, 19))
                 .age(22)
                 .role(Role.ADMIN)
                 .build();

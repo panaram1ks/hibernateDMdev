@@ -1,5 +1,7 @@
 package com.dmdev;
 
+import com.dmdev.converter.BirthdayConverter;
+import com.dmdev.entity.Birthday;
 import com.dmdev.entity.Role;
 import com.dmdev.entity.User;
 import org.hibernate.Session;
@@ -27,6 +29,10 @@ public class HibernateRunner {
 
         Configuration configuration = new Configuration();
         configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());// first var , second var @Column above field
+//        configuration.addAttributeConverter(new BirthdayConverter(), true);// second var say Hibernate use this converter
+        configuration.addAttributeConverter(new BirthdayConverter());
+
+
 //        configuration.configure("path/to/config.xml");
 //        configuration.addAnnotatedClass(User.class);// first var mapping entity, second var add <mapping class= to xml >
         configuration.configure();
@@ -39,8 +45,7 @@ public class HibernateRunner {
                     .username("ivan@gmail.com")
                     .firstname("Ivan")
                     .lastname("Ivanov")
-                    .birthDate(LocalDate.of(2000, 1, 19))
-                    .age(22)
+                    .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
                     .role(Role.ADMIN)
                     .build();
 
