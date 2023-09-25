@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
+@TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
 public class User {
 
     @Id
@@ -25,12 +27,14 @@ public class User {
     private String firstname;
     private String lastname;
 
-//    @Convert(converter = BirthdayConverter.class) // first var say Hibernate use this converter
+    //    @Convert(converter = BirthdayConverter.class) // first var say Hibernate use this converter
     @Column(name = "birth_date")
     private Birthday birthDate;
 
-//    JsonBinaryType
-    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
+    //    JsonBinaryType
+//    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
+//    @Type(type = "jsonb")
+    @Type(type = "dmdev")
     private String info;
 
     @Enumerated(EnumType.STRING)
