@@ -44,7 +44,7 @@ public class HibernateRunner {
             System.out.println("ok");
 
             User user = User.builder()
-                    .username("ivan3@gmail.com")
+                    .username("ivan8@gmail.com")
                     .firstname("Ivan")
                     .lastname("Ivanov")
                     .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
@@ -58,7 +58,12 @@ public class HibernateRunner {
                     .build();
 
             session.beginTransaction();
-            session.save(user);
+//            session.save(user);
+//            session.update(user);
+//            session.saveOrUpdate(user);
+//            session.delete(user);
+            User user1 = session.get(User.class, "ivan6@gmail.com");
+
             session.getTransaction().commit(); // if everything is goog
 //            session.getTransaction().rollback(); // if something wrong
 
