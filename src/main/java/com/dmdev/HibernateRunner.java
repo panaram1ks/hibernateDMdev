@@ -4,6 +4,7 @@ import com.dmdev.converter.BirthdayConverter;
 import com.dmdev.entity.Birthday;
 import com.dmdev.entity.Role;
 import com.dmdev.entity.User;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
@@ -31,6 +32,7 @@ public class HibernateRunner {
         configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());// first var , second var @Column above field
 //        configuration.addAttributeConverter(new BirthdayConverter(), true);// second var say Hibernate use this converter
         configuration.addAttributeConverter(new BirthdayConverter());
+        configuration.registerTypeOverride(new JsonBinaryType());
 
 
 //        configuration.configure("path/to/config.xml");
@@ -47,6 +49,12 @@ public class HibernateRunner {
                     .lastname("Ivanov")
                     .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
                     .role(Role.ADMIN)
+                    .info("""
+                            {
+                                "name": "Ivan",
+                                "id": 25
+                            }
+                            """)
                     .build();
 
             session.beginTransaction();

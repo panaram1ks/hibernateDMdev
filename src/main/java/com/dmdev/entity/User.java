@@ -2,10 +2,12 @@ package com.dmdev.entity;
 
 
 import com.dmdev.converter.BirthdayConverter;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,6 +28,10 @@ public class User {
 //    @Convert(converter = BirthdayConverter.class) // first var say Hibernate use this converter
     @Column(name = "birth_date")
     private Birthday birthDate;
+
+//    JsonBinaryType
+    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")
+    private String info;
 
     @Enumerated(EnumType.STRING)
     private Role role;
