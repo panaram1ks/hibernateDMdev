@@ -1,5 +1,6 @@
 package com.dmdev;
 
+import com.dmdev.entity.Role;
 import com.dmdev.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -40,6 +41,7 @@ public class HibernateRunner {
                     .lastname("Ivanov")
                     .birthDate(LocalDate.of(2000, 1, 19))
                     .age(22)
+                    .role(Role.ADMIN)
                     .build();
 
             session.beginTransaction();
