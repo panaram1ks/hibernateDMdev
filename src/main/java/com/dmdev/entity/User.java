@@ -24,12 +24,10 @@ public class User {
 
     @Id
     private String username;
-    private String firstname;
-    private String lastname;
 
-    //    @Convert(converter = BirthdayConverter.class) // first var say Hibernate use this converter
-    @Column(name = "birth_date")
-    private Birthday birthDate;
+    @Embedded
+    @AttributeOverride(name = "birthDate", column = @Column(name = "birth_date"))
+    private PersonalInfo personalInfo;
 
     //    JsonBinaryType
 //    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")

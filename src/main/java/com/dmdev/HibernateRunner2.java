@@ -1,5 +1,6 @@
 package com.dmdev;
 
+import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.User;
 import com.dmdev.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +17,11 @@ public class HibernateRunner2 {
 
     public static void main(String[] args) {
         User user = User.builder()
-                .username("ivan@gmail.com")
-                .lastname("Ivanov")
-                .firstname("Ivan")
+                .username("petr@gmail.com")
+                .personalInfo(PersonalInfo.builder()
+                        .lastname("Petr")
+                        .firstname("Retrov")
+                        .build())
                 .build();
         //user is Transient;
 //        log.info("user entity is in transient state, object: " + user);
@@ -43,7 +46,10 @@ public class HibernateRunner2 {
              Session session2 = sessionFactory.openSession()) {
             session2.beginTransaction();
 
-            user.setFirstname("Sveta");
+            user.setPersonalInfo(
+                    PersonalInfo.builder()
+                            .firstname("Sveta")
+                    .build());
 //            session2.delete(user);
 //            refresh/merge
 //            session2.refresh(user); // 1) freshUser = session2.get(User.class, user.getUsername()); 2) set all data from freshUser from db to our user in program

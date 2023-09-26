@@ -2,6 +2,7 @@ package com.dmdev;
 
 import com.dmdev.converter.BirthdayConverter;
 import com.dmdev.entity.Birthday;
+import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
 import com.dmdev.entity.User;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
@@ -45,9 +46,11 @@ public class HibernateRunner {
 
             User user = User.builder()
                     .username("ivan8@gmail.com")
-                    .firstname("Ivan")
-                    .lastname("Ivanov")
-                    .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
+                    .personalInfo(PersonalInfo.builder()
+                            .firstname("Ivan")
+                            .lastname("Ivanov")
+                            .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
+                            .build())
                     .role(Role.ADMIN)
                     .info("""
                             {
