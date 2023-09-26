@@ -36,7 +36,7 @@ public class User {
     private Role role;
 
     // Bidirectional relation(when we already have ManyToOne relation) if we don't have company here it's Onedirectional relation
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "company_id")// not required
     private Company company;
 

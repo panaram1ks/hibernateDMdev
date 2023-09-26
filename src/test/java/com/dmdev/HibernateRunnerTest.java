@@ -27,6 +27,48 @@ import static java.util.stream.Collectors.joining;
 class HibernateRunnerTest {
 
     @Test
+    void deleteUser(){
+        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        Transaction transaction = session.getTransaction();
+
+        User user = session.get(User.class, 3L);
+        session.delete(user);
+
+        transaction.commit();
+    }
+
+    @Test
+    void deleteCompany(){
+        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        Transaction transaction = session.getTransaction();
+
+        Company company = session.get(Company.class, 6L);
+        session.delete(company);
+
+        transaction.commit();
+    }
+
+    @Test
+    void addUserToNewCompany(){
+        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Company company = Company.builder()
+                .name("Facebook")
+                .build();
+        User user = User.builder()
+                .username("sveta@gmail.com")
+                .build();
+//        user.setCompany(company);
+//        company.getUsers().add(user);
+        company.addUser(user);
+        session.save(company);
+        transaction.commit();
+    }
+
+    @Test
     void oneToMany() {
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
