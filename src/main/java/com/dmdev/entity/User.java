@@ -12,6 +12,9 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +23,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "users", schema = "public")
 @TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
+//@Access(AccessType.PROPERTY)
 public class User {
 
     //    @Id
@@ -48,6 +52,18 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date date;
+    // Java 8 datetimeAPI
+//    private LocalDateTime localDateTime;
+//    private LocalDate localDate;
+//    private LocalTime localTime;
+
+
+
+
+
 
 //    public User() {
 //    }
