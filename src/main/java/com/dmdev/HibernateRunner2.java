@@ -2,7 +2,7 @@ package com.dmdev;
 
 import com.dmdev.entity.Birthday;
 import com.dmdev.entity.PersonalInfo;
-import com.dmdev.entity.User;
+import com.dmdev.entity.onetomany.User;
 import com.dmdev.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;

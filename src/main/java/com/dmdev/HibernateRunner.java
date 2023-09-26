@@ -4,7 +4,7 @@ import com.dmdev.converter.BirthdayConverter;
 import com.dmdev.entity.Birthday;
 import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
-import com.dmdev.entity.User;
+import com.dmdev.entity.onetomany.User;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -52,12 +52,12 @@ public class HibernateRunner {
                             .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
                             .build())
                     .role(Role.ADMIN)
-                    .info("""
-                            {
-                                "name": "Ivan",
-                                "id": 25
-                            }
-                            """)
+//                    .info("""
+//                            {
+//                                "name": "Ivan",
+//                                "id": 25
+//                            }
+//                            """)
                     .build();
 
             session.beginTransaction();

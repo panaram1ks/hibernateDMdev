@@ -13,8 +13,10 @@
         <property name="format_sql">true</property>
 
         <!--        second var mapping entity for Hibernate-->
-        <mapping class="com.dmdev.entity.User"/>
-        <mapping class="com.dmdev.entity.Company"/>
+<!--        <mapping class="com.dmdev.entity.User"/>-->
+<!--        <mapping class="com.dmdev.entity.Company"/>-->
+        <mapping class="com.dmdev.entity.onetomany.Company"/>
+        <mapping class="com.dmdev.entity.onetomany.User"/>
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
