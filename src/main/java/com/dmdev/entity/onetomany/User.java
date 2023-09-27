@@ -42,7 +42,10 @@ public class User {
     @JoinColumn(name = "company_id")// not required
     private Company company;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user",
+            cascade = CascadeType.ALL, // CascadeType.ALL -> profile will automatic save if user save!
+            fetch = FetchType.LAZY,
+            optional = false) // optional = false make LazyInitialization not fetchType
     private Profile profile;
 
 }

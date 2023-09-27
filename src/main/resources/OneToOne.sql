@@ -24,3 +24,12 @@ CREATE TABLE profile
     language CHAR(2)
 );
 
+CREATE TABLE profile
+(
+    id BIGSERIAL PRIMARY KEY,
+    user_id  BIGINT not null unique REFERENCES users (id),
+    street   VARCHAR(128),
+    language CHAR(2)
+);
+
+drop table profile;
