@@ -22,5 +22,6 @@ CREATE TABLE users_chat
     user_id BIGINT REFERENCES users (id),
     chat_id BIGINT REFERENCES chat (id),
     created_at TIMESTAMP not null ,
-    added_by VARCHAR(128) not null
+    added_by VARCHAR(128) not null,
+    UNIQUE (user_id, chat_id)
 );
