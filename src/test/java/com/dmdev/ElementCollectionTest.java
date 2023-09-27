@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 
 public class ElementCollectionTest {
@@ -24,6 +25,7 @@ public class ElementCollectionTest {
 //            company.getLocales().add(LocaleInfo.of("en", "English description"));
 
             Set<User> users = company.getUsers();
+            System.out.println(users);
 
             transaction.commit();
         }

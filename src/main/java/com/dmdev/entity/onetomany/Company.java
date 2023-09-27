@@ -2,12 +2,10 @@ package com.dmdev.entity.onetomany;
 
 import com.dmdev.entity.LocaleInfo;
 import lombok.*;
+import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder
@@ -25,14 +23,25 @@ public class Company {
     @Column(nullable = false, unique = true)
     private String name;
 
-    //    @OneToMany
-//    @JoinColumn(name = "company_id")
-//    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+//    //    @OneToMany
+////    @JoinColumn(name = "company_id")
+////    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+//    @Builder.Default
+//    @OneToMany(mappedBy = "company", orphanRemoval = true)
+////    @org.hibernate.annotations.OrderBy(clause = "username DESC, lastname ASC") // usually use SQL
+//    @OrderBy(value = "username DESC, personalInfo.lastname ASC") // use HQL
+////    @OrderColumn // only with collection no Set, value should be INT
+//    private Set<User> users = new HashSet<>();
+
+//    @Builder.Default
+//    @OneToMany(mappedBy = "company", orphanRemoval = true)
+//    @OrderColumn(name = "id")
+//    private List<User> users = new ArrayList<>();
+
     @Builder.Default
     @OneToMany(mappedBy = "company", orphanRemoval = true)
-//    @org.hibernate.annotations.OrderBy(clause = "username DESC, lastname ASC") // usually use SQL
-    @OrderBy(value = "username DESC, personalInfo.lastname ASC") // use HQL
-    private Set<User> users = new HashSet<>();
+    @SortNatural
+    private Set<User> users = new TreeSet<>();
 
     public void addUser(User user) {
         users.add(user);
