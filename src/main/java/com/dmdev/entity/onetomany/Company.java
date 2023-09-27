@@ -53,6 +53,7 @@ public class Company {
     @Builder.Default
     @OneToMany(mappedBy = "company", orphanRemoval = true)
     @MapKey(name = "username")
+    @SortNatural
     private Map<String, User> users = new HashMap<>();
 
     public void addUser(User user) {
