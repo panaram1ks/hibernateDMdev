@@ -2,6 +2,7 @@ package com.dmdev;
 
 import com.dmdev.entity.onetomany.Company;
 import com.dmdev.entity.onetomany.User;
+import com.dmdev.entity.onetoone.Profile;
 import com.dmdev.util.HibernateUtil;
 import lombok.Cleanup;
 import org.hibernate.Hibernate;
@@ -15,6 +16,30 @@ import java.util.List;
 import java.util.Set;
 
 class HibernateRunnerTest {
+
+    @Test
+    void checkOneToOne() {
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+//            User user = User.builder()
+//                    .username("test22@gmail.com")
+//                    .build();
+//            Profile profile = Profile.builder()
+//                    .language("ru")
+//                    .street("Kolasa 20")
+//                    .build();
+//
+//            session.save(user);
+//            profile.setUser(user);
+//            session.save(profile);
+
+            User user = session.get(User.class, 3l);
+
+            transaction.commit();
+        }
+    }
+
 
     @Test
     void checkOrhanRemoval() {

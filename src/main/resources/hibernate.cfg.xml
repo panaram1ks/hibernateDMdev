@@ -17,6 +17,7 @@
 <!--        <mapping class="com.dmdev.entity.Company"/>-->
         <mapping class="com.dmdev.entity.onetomany.Company"/>
         <mapping class="com.dmdev.entity.onetomany.User"/>
+        <mapping class="com.dmdev.entity.onetoone.Profile"/>
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

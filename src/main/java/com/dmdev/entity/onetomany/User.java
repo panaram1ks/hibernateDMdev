@@ -2,6 +2,7 @@ package com.dmdev.entity.onetomany;
 
 import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
+import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = "company")
+@ToString(exclude = {"company", "profile"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -40,5 +41,8 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")// not required
     private Company company;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
 
 }
