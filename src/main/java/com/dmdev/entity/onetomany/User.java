@@ -2,6 +2,7 @@ package com.dmdev.entity.onetomany;
 
 import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
+import com.dmdev.entity.manytomany.Chat;
 import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
@@ -9,10 +10,14 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"company", "profile"})
+@ToString(exclude = {"company", "profile", "chats"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -47,5 +52,19 @@ public class User {
             fetch = FetchType.LAZY,
             optional = false) // optional = false make LazyInitialization not fetchType
     private Profile profile;
+
+
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(name = "users_chat",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id")
+    )
+    private Set<Chat> chats = new HashSet<>();
+
+    public void addChat(Chat chat){
+        chats.add(chat);
+        chat.getUsers().add(this);
+    }
 
 }
