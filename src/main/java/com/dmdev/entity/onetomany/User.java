@@ -10,6 +10,7 @@ import org.hibernate.annotations.TypeDef;
 import javax.persistence.*;
 
 @Data
+@EqualsAndHashCode(of = "username")
 @ToString(exclude = "company")
 @NoArgsConstructor
 @AllArgsConstructor

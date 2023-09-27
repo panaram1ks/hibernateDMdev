@@ -10,8 +10,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "name")
 @ToString(exclude = "users")
-@EqualsAndHashCode(exclude = "users")
 @Entity
 public class Company {
 
@@ -19,6 +19,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     //    @OneToMany
