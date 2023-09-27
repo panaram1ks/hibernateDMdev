@@ -1,36 +1,91 @@
 package com.dmdev;
 
-import com.dmdev.entity.Role;
 import com.dmdev.entity.onetomany.Company;
 import com.dmdev.entity.onetomany.User;
 import com.dmdev.util.HibernateUtil;
 import lombok.Cleanup;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Optional;
-
-import static java.util.stream.Collectors.joining;
+import java.util.List;
+import java.util.Set;
 
 class HibernateRunnerTest {
 
     @Test
-    void deleteUser(){
+    void saveUsers(){
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
-        Transaction transaction = session.getTransaction();
+        Transaction transaction = session.beginTransaction();
+
+        String companiesQuery = "SELECT id, name  FROM company";
+        NativeQuery nativeQuery = session.createNativeQuery(companiesQuery);
+        List<Company> resultList = (List<Company>) nativeQuery.getResultList();
+
+        transaction.commit();
+    }
+
+    @Test
+    void saveCompanies(){
+        Company google = Company.builder()
+                .name("Google")
+                .build();
+        Company amazone = Company.builder()
+                .name("Amazone")
+                .build();
+        Company facebook = Company.builder()
+                .name("Facebook")
+                .build();
+
+        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.save(google);
+        session.save(amazone);
+        session.save(facebook);
+
+       transaction.commit();
+    }
+
+    @Test
+    void checkLazyInitialization() {
+        Company company = null;
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            Transaction transaction = session.beginTransaction();
+
+            company = session.get(Company.class, 12L);
+
+            transaction.commit();
+        }
+        Set<User> users = company.getUsers();
+        System.out.println(users.size());
+    }
+
+    @Test
+    void getCompanyById(){
+        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Company company = session.get(Company.class, 1L);
+        Hibernate.initialize(company.getUsers());
+        System.out.println();
+
+        transaction.commit();
+    }
+
+    @Test
+    void deleteUser() {
+        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction() ;
 
         User user = session.get(User.class, 3L);
         session.delete(user);
@@ -39,10 +94,10 @@ class HibernateRunnerTest {
     }
 
     @Test
-    void deleteCompany(){
+    void deleteCompany() {
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
-        Transaction transaction = session.getTransaction();
+        Transaction transaction = session.beginTransaction();
 
         Company company = session.get(Company.class, 6L);
         session.delete(company);
@@ -51,12 +106,12 @@ class HibernateRunnerTest {
     }
 
     @Test
-    void addUserToNewCompany(){
+    void addUserToNewCompany() {
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Company company = Company.builder()
-                .name("Facebook")
+                .name("OZONE")
                 .build();
         User user = User.builder()
                 .username("sveta@gmail.com")
@@ -75,7 +130,8 @@ class HibernateRunnerTest {
         Transaction transaction = session.beginTransaction();
 
         Company company = session.get(Company.class, 3L);
-        System.out.println();
+        Hibernate.initialize(company.getUsers());
+        System.out.println(company.getUsers());
 
         transaction.commit();
     }
