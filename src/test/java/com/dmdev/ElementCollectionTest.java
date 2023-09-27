@@ -8,8 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ElementCollectionTest {
@@ -24,8 +26,9 @@ public class ElementCollectionTest {
 //            company.getLocales().add(LocaleInfo.of("ru", "Описание на русском"));
 //            company.getLocales().add(LocaleInfo.of("en", "English description"));
 
-            Set<User> users = company.getUsers();
-            System.out.println(users);
+//            Set<User> users = company.getUsers();
+            Map<String, User> users = company.getUsers();
+            users.forEach((k, v) -> System.out.println(v));
 
             transaction.commit();
         }

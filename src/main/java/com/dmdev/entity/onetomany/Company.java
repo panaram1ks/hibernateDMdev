@@ -44,14 +44,20 @@ public class Company {
 //    @SortNatural
 //    private Set<User> users = new TreeSet<>();
 
+//    @Builder.Default
+//    @OneToMany(mappedBy = "company", orphanRemoval = true)
+////    @SortComparator() // able to use Comparator class
+//    @SortNatural
+//    private SortedSet<User> users = new TreeSet<>();
+
     @Builder.Default
     @OneToMany(mappedBy = "company", orphanRemoval = true)
-//    @SortComparator() // able to use Comparator class
-    @SortNatural
-    private SortedSet<User> users = new TreeSet<>();
+    @MapKey(name = "username")
+    private Map<String, User> users = new HashMap<>();
 
     public void addUser(User user) {
-        users.add(user);
+        users.put(user.getUsername(), user);
+//        users.add(user);
         user.setCompany(this);
     }
 

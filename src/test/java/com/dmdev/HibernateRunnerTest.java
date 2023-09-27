@@ -49,8 +49,8 @@ class HibernateRunnerTest {
         Transaction transaction = session.beginTransaction();
 
         Company company = session.get(Company.class, 14l);
-        Set<User> users = company.getUsers();
-        users.removeIf(user -> user.getId().equals(1L));
+//        Set<User> users = company.getUsers();
+//        users.removeIf(user -> user.getId().equals(1L));
 
         transaction.commit();
     }
@@ -104,8 +104,8 @@ class HibernateRunnerTest {
 
             transaction.commit();
         }
-        Set<User> users = company.getUsers();
-        System.out.println(users.size());
+//        Set<User> users = company.getUsers();
+//        System.out.println(users.size());
     }
 
     @Test
