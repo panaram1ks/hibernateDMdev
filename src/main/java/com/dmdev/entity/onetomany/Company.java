@@ -26,7 +26,7 @@ public class Company {
 //    @JoinColumn(name = "company_id")
 //    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     @Builder.Default
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", orphanRemoval = true)
     private Set<User> users = new HashSet<>();
 
     public void addUser(User user){

@@ -17,7 +17,21 @@ import java.util.Set;
 class HibernateRunnerTest {
 
     @Test
-    void saveUsers(){
+    void checkOrhanRemoval() {
+        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Company company = session.get(Company.class, 14l);
+        Set<User> users = company.getUsers();
+        users.removeIf(user -> user.getId().equals(1L));
+
+        transaction.commit();
+    }
+
+
+    @Test
+    void saveUsers() {
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -30,7 +44,7 @@ class HibernateRunnerTest {
     }
 
     @Test
-    void saveCompanies(){
+    void saveCompanies() {
         Company google = Company.builder()
                 .name("Google")
                 .build();
@@ -49,7 +63,7 @@ class HibernateRunnerTest {
         session.save(amazone);
         session.save(facebook);
 
-       transaction.commit();
+        transaction.commit();
     }
 
     @Test
@@ -69,7 +83,7 @@ class HibernateRunnerTest {
     }
 
     @Test
-    void getCompanyById(){
+    void getCompanyById() {
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -85,7 +99,7 @@ class HibernateRunnerTest {
     void deleteUser() {
         @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction() ;
+        Transaction transaction = session.beginTransaction();
 
         User user = session.get(User.class, 3L);
         session.delete(user);
