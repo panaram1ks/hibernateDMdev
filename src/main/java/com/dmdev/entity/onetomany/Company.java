@@ -30,6 +30,8 @@ public class Company {
 //    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     @Builder.Default
     @OneToMany(mappedBy = "company", orphanRemoval = true)
+//    @org.hibernate.annotations.OrderBy(clause = "username DESC, lastname ASC") // usually use SQL
+    @OrderBy(value = "username DESC, personalInfo.lastname ASC") // use HQL
     private Set<User> users = new HashSet<>();
 
     public void addUser(User user) {
