@@ -2,6 +2,7 @@ package com.dmdev.entity.onetomany;
 
 import com.dmdev.entity.LocaleInfo;
 import lombok.*;
+import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
@@ -38,10 +39,16 @@ public class Company {
 //    @OrderColumn(name = "id")
 //    private List<User> users = new ArrayList<>();
 
+//    @Builder.Default
+//    @OneToMany(mappedBy = "company", orphanRemoval = true)
+//    @SortNatural
+//    private Set<User> users = new TreeSet<>();
+
     @Builder.Default
     @OneToMany(mappedBy = "company", orphanRemoval = true)
+//    @SortComparator() // able to use Comparator class
     @SortNatural
-    private Set<User> users = new TreeSet<>();
+    private SortedSet<User> users = new TreeSet<>();
 
     public void addUser(User user) {
         users.add(user);
