@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(of = "name")
-@ToString(exclude = "users")
+@ToString(exclude = "userChats" /*"users"*/)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,14 +23,19 @@ public class Chat {
     @Column(nullable = false, unique = true)
     private String name;
 
+    // First var
+//    @Builder.Default
+//    @ManyToMany(mappedBy = "chats") // User is  more important entity in our logic
+//    private Set<User> users = new HashSet<>();
+//
+//
+//    public void addUser(User user) {
+//        users.add(user);
+//        user.addChat(this);
+//    }
+
     @Builder.Default
-    @ManyToMany(mappedBy = "chats") // User is  more important entity in our logic
-    private Set<User> users = new HashSet<>();
-
-
-    public void addUser(User user) {
-        users.add(user);
-        user.addChat(this);
-    }
+    @OneToMany(mappedBy = "chat")
+    private Set<UserChat> userChats = new HashSet<>();
 
 }

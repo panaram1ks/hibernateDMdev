@@ -3,6 +3,7 @@ package com.dmdev.entity.onetomany;
 import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
 import com.dmdev.entity.manytomany.Chat;
+import com.dmdev.entity.manytomany.UserChat;
 import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
@@ -17,7 +18,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"company", "profile", "chats"})
+@ToString(exclude = {"company", "profile", "userChats" /*"chats"*/})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -54,17 +55,22 @@ public class User {
     private Profile profile;
 
 
-    @Builder.Default
-    @ManyToMany
-    @JoinTable(name = "users_chat",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id")
-    )
-    private Set<Chat> chats = new HashSet<>();
+    // First var
+//    @Builder.Default
+//    @ManyToMany
+//    @JoinTable(name = "users_chat",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "chat_id")
+//    )
+//    private Set<Chat> chats = new HashSet<>();
+//
+//    public void addChat(Chat chat){
+//        chats.add(chat);
+//        chat.getUsers().add(this);
+//    }
 
-    public void addChat(Chat chat){
-        chats.add(chat);
-        chat.getUsers().add(this);
-    }
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private Set<UserChat> userChats = new HashSet<>();
 
 }
