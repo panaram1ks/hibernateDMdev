@@ -3,7 +3,6 @@ package com.dmdev.entity.onetomany;
 import com.dmdev.entity.BaseEntityInterface;
 import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
-import com.dmdev.entity.manytomany.Chat;
 import com.dmdev.entity.manytomany.UserChat;
 import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
@@ -13,23 +12,22 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @EqualsAndHashCode(of = "username")
 @ToString(exclude = {"company", "profile", "userChats" /*"chats"*/})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 @Entity
-@Table(name = "users", schema = "public")
+//@Table(name = "users", schema = "public")
 @TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
-public class User implements Comparable<User>, BaseEntityInterface<Long> {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @AttributeOverride(name = "birthDate", column = @Column(name = "birth_date"))
@@ -51,8 +49,9 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @OneToOne(mappedBy = "user",
             cascade = CascadeType.ALL, // CascadeType.ALL -> profile will automatic save if user save!
-            fetch = FetchType.LAZY,
-            optional = false) // optional = false make LazyInitialization not fetchType
+            fetch = FetchType.LAZY
+//            , optional = false
+    ) // optional = false make LazyInitialization not fetchType
     private Profile profile;
 
 
@@ -70,7 +69,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //        chat.getUsers().add(this);
 //    }
 
-    @Builder.Default
+//    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
 

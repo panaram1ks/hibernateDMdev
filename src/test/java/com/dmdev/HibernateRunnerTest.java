@@ -153,12 +153,12 @@ class HibernateRunnerTest {
         Company company = Company.builder()
                 .name("OZONE")
                 .build();
-        User user = User.builder()
-                .username("sveta@gmail.com")
-                .build();
+//        User user = User.builder()
+//                .username("sveta@gmail.com")
+//                .build();
 //        user.setCompany(company);
 //        company.getUsers().add(user);
-        company.addUser(user);
+//        company.addUser(user);
         session.save(company);
         transaction.commit();
     }

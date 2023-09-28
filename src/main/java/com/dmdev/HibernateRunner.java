@@ -44,21 +44,21 @@ public class HibernateRunner {
              Session session = sessionFactory.openSession()) {
             System.out.println("ok");
 
-            User user = User.builder()
-                    .username("ivan8@gmail.com")
-                    .personalInfo(PersonalInfo.builder()
-                            .firstname("Ivan")
-                            .lastname("Ivanov")
-                            .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
-                            .build())
-                    .role(Role.ADMIN)
-//                    .info("""
-//                            {
-//                                "name": "Ivan",
-//                                "id": 25
-//                            }
-//                            """)
-                    .build();
+//            User user = User.builder()
+//                    .username("ivan8@gmail.com")
+//                    .personalInfo(PersonalInfo.builder()
+//                            .firstname("Ivan")
+//                            .lastname("Ivanov")
+//                            .birthDate(new Birthday(LocalDate.of(2000, 1, 19)))
+//                            .build())
+//                    .role(Role.ADMIN)
+////                    .info("""
+////                            {
+////                                "name": "Ivan",
+////                                "id": 25
+////                            }
+////                            """)
+//                    .build();
 
             session.beginTransaction();
 //            session.save(user);

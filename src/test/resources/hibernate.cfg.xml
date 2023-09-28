@@ -25,6 +25,9 @@
         <mapping class="com.dmdev.entity.manytomany.Chat"/>
         <mapping class="com.dmdev.entity.manytomany.UserChat"/>
 
+        <mapping class="com.dmdev.entity.tableperclass.Programmer"/>
+        <mapping class="com.dmdev.entity.tableperclass.Manager"/>
+
 
     </session-factory>
 </hibernate-configuration>

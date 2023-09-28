@@ -11,17 +11,17 @@ public class ManyToOneRunner {
 
     public static void main(String[] args) {
         Company company = Company.builder().name("Intel").build();
-        User user = User.builder()
-                .username("vladimir15@gmail.com")
-                .company(company)
-                .build();
+//        User user = User.builder()
+//                .username("vladimir15@gmail.com")
+//                .company(company)
+//                .build();
 
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
 
             Transaction transaction = session.beginTransaction();
 
-            session.save(user);
+//            session.save(user);
 //            User userFromDB = session.get(User.class, 1L);
 //            session.evict(userFromDB);
 //            session.save(company);

@@ -19,25 +19,25 @@ import java.time.LocalDate;
 public class HibernateRunner2 {
 
     public static void main(String[] args) {
-        User user = User.builder()
-                .username("petr3@gmail.com")
-                .personalInfo(PersonalInfo.builder()
-                        .lastname("Petr")
-                        .firstname("Retrov")
-                        .birthDate(new Birthday(LocalDate.of(2000, 1, 2)))
-                        .build())
-                .build();
+//        User user = User.builder()
+//                .username("petr3@gmail.com")
+//                .personalInfo(PersonalInfo.builder()
+//                        .lastname("Petr")
+//                        .firstname("Retrov")
+//                        .birthDate(new Birthday(LocalDate.of(2000, 1, 2)))
+//                        .build())
+//                .build();
         //user is Transient;
 //        log.info("user entity is in transient state, object: " + user);
-        log.info("user entity is in transient state, object: {}", user);
+//        log.info("user entity is in transient state, object: {}", user);
 
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session1 = sessionFactory.openSession()) {
             Transaction transaction = session1.beginTransaction();
             log.trace("Transaction is created, {}", transaction);
 
-            session1.saveOrUpdate(user); // Persistent
-            log.trace("User is in persistent state: {}, session {}", user, session1);
+//            session1.saveOrUpdate(user); // Persistent
+//            log.trace("User is in persistent state: {}, session {}", user, session1);
 
             session1.getTransaction().commit();
 
@@ -56,7 +56,7 @@ public class HibernateRunner2 {
             log.error("Exception occurred", e);
             throw e;
         }
-        log.warn("User is in detached state: {}, session is closed", user);
+//        log.warn("User is in detached state: {}, session is closed", user);
 
 //        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 //             Session session2 = sessionFactory.openSession()) {

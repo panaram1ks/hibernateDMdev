@@ -21,15 +21,15 @@ public class ManyToManyRunner {
 
             User user = session.get(User.class, 4L);
             Chat chat = session.get(Chat.class, 1L);
-            UserChat userChat = UserChat.builder()
-                    .createdAt(Instant.now())
-                    .addedBy(user.getUsername())
-                    .build();
+//            UserChat userChat = UserChat.builder()
+//                    .createdAt(Instant.now())
+//                    .addedBy(user.getUsername())
+//                    .build();
 
-            userChat.setUser(user);
-            userChat.setChat(chat);
-
-            session.save(userChat);
+//            userChat.setUser(user);
+//            userChat.setChat(chat);
+//
+//            session.save(userChat);
 
             transaction.commit();
         }
