@@ -22,6 +22,7 @@
         <mapping class="com.dmdev.entity.manytomany.UserChat"/>
         <mapping class="com.dmdev.entity.tableperclass.Programmer"/>
         <mapping class="com.dmdev.entity.tableperclass.Manager"/>
+        <mapping class="com.dmdev.entity.onetomany.Payment"/>
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

@@ -27,6 +27,7 @@
 
         <mapping class="com.dmdev.entity.tableperclass.Programmer"/>
         <mapping class="com.dmdev.entity.tableperclass.Manager"/>
+        <mapping class="com.dmdev.entity.onetomany.Payment"/>
 
 
     </session-factory>

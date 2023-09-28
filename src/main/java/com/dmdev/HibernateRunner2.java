@@ -46,7 +46,7 @@ public class HibernateRunner2 {
                 PersonalInfo key = PersonalInfo.builder()
                         .lastname("Petr")
                         .firstname("Retrov")
-                        .birthDate(new Birthday(LocalDate.of(2000, 1, 2)))
+                        .birthDate(LocalDate.of(2000, 1, 2))
                         .build();
 
                 User user1 = session.get(User.class, key);

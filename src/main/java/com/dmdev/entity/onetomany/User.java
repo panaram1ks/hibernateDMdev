@@ -14,6 +14,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.dmdev.util.StringUtils.SPACE;
 
 @NamedQuery(name = "findUserByNameAndCompanyName", query = "SELECT u FROM User u " +
         "JOIN u.company c " +
@@ -82,5 +83,14 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
     @Override
     public int compareTo(User o) {
         return username.compareTo(o.getUsername());
+    }
+
+
+    @Builder.Default
+    @OneToMany(mappedBy = "receiver")
+    private List<Payment> payments = new ArrayList<>();
+
+    public String fullName() {
+        return getPersonalInfo().getFirstname() + SPACE + getPersonalInfo().getLastname();
     }
 }
