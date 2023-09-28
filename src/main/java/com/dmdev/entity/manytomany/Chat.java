@@ -1,5 +1,6 @@
 package com.dmdev.entity.manytomany;
 
+import com.dmdev.entity.BaseEntityInterface;
 import com.dmdev.entity.onetomany.User;
 import lombok.*;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Chat {
+public class Chat implements BaseEntityInterface<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

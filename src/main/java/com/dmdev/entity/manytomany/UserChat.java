@@ -1,5 +1,6 @@
 package com.dmdev.entity.manytomany;
 
+import com.dmdev.entity.AuditableEntity;
 import com.dmdev.entity.BaseEntity;
 import com.dmdev.entity.onetomany.User;
 import lombok.AllArgsConstructor;
@@ -16,13 +17,11 @@ import java.time.Instant;
 @Builder
 @Entity
 @Table(name = "users_chat")
-public class UserChat extends BaseEntity<Long> {
+public class UserChat extends AuditableEntity<Long> {
 
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @Column(name = "added_by")
-    private String addedBy;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
 //    @JoinColumn(name ="user_id") // NOT REQUIRED

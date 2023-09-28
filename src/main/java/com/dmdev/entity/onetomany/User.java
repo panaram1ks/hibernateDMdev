@@ -1,5 +1,6 @@
 package com.dmdev.entity.onetomany;
 
+import com.dmdev.entity.BaseEntityInterface;
 import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
 import com.dmdev.entity.manytomany.Chat;
@@ -25,7 +26,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users", schema = "public")
 @TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
-public class User implements Comparable<User>{
+public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
