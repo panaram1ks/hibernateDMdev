@@ -24,13 +24,13 @@ public class SingleTableTest {
                     .name("Google")
                     .build();
             session.save(google);
-
-            Programmer programmer = Programmer.builder()
-                    .username("ivan@gmail.com")
-                    .language(Language.JAVA)
-                    .company(google)
-                    .build();
-            session.save(programmer);
+//
+//            Programmer programmer = Programmer.builder()
+//                    .username("ivan@gmail.com")
+//                    .language(Language.JAVA)
+//                    .company(google)
+//                    .build();
+//            session.save(programmer);
 //            Manager manager = Manager.builder()
 //                    .username("manager@gmail.com")
 //                    .company(google)

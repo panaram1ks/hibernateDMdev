@@ -26,12 +26,12 @@ public class TablePerClassTest {
                     .build();
             session.save(google);
 
-            Programmer programmer = Programmer.builder()
-                    .username("ivan@gmail.com")
-                    .language(Language.JAVA)
-                    .company(google)
-                    .build();
-            session.save(programmer);
+//            Programmer programmer = Programmer.builder()
+//                    .username("ivan@gmail.com")
+//                    .language(Language.JAVA)
+//                    .company(google)
+//                    .build();
+//            session.save(programmer);
             session.flush();
 
             session.clear();

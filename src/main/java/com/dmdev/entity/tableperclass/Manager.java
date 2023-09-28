@@ -1,5 +1,6 @@
 package com.dmdev.entity.tableperclass;
 
+import com.dmdev.entity.BaseEntity;
 import com.dmdev.entity.PersonalInfo;
 import com.dmdev.entity.Role;
 import com.dmdev.entity.manytomany.UserChat;
@@ -17,14 +18,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
-public class Manager extends User {
+//@PrimaryKeyJoinColumn(name = "id")
+public class Manager extends BaseEntity<Long> {
 
     private String projectName;
 
-    @Builder
-    public Manager(Long id, PersonalInfo personalInfo, String username, String info, Role role, Company company, Profile profile, List<UserChat> userChats, String projectName) {
-        super(id, personalInfo, username, info, role, company, profile, userChats);
-        this.projectName = projectName;
-    }
+//    @Builder
+//    public Manager(Long id, PersonalInfo personalInfo, String username, String info, Role role, Company company, Profile profile, List<UserChat> userChats, String projectName) {
+//        super(id, personalInfo, username, info, role, company, profile, userChats);
+//        this.projectName = projectName;
+//    }
 }

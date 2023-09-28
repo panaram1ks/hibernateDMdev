@@ -19,12 +19,12 @@ import java.util.List;
 @ToString(exclude = {"company", "profile", "userChats" /*"chats"*/})
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
+@Builder
 @Entity
-//@Table(name = "users", schema = "public")
+@Table(name = "users", schema = "public")
 @TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User implements Comparable<User>, BaseEntityInterface<Long> {
+//@Inheritance(strategy = InheritanceType.JOINED)
+public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +49,7 @@ public abstract class User implements Comparable<User>, BaseEntityInterface<Long
 
     @OneToOne(mappedBy = "user",
             cascade = CascadeType.ALL, // CascadeType.ALL -> profile will automatic save if user save!
-            fetch = FetchType.LAZY
+            fetch = FetchType.LAZY // doesn't work because Hibernate should do request to know id of profile
 //            , optional = false
     ) // optional = false make LazyInitialization not fetchType
     private Profile profile;
