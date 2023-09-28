@@ -6,6 +6,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -17,16 +20,32 @@ public class UserDao {
      * Возвращает всех сотрудников
      */
     public List<User> findAll(Session session) {
-        return session.createQuery("SELECT u FROM User u", User.class).list();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+        Root<User> user = criteria.from(User.class);
+        criteria.select(user);
+
+        return session.createQuery(criteria).list();
+
+//        return session.createQuery("SELECT u FROM User u", User.class).list();
     }
 
     /**
      * Возвращает всех сотрудников с указанным именем
      */
     public List<User> findAllByFirstName(Session session, String firstName) {
-        return session.createQuery("SELECT u FROM User  u WHERE u.personalInfo.firstname = :firstName", User.class)
-                .setParameter("firstName", firstName)
-                .list();
+//        return session.createQuery("SELECT u FROM User  u WHERE u.personalInfo.firstname = :firstName", User.class)
+//                .setParameter("firstName", firstName)
+//                .list();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
+        Root<User> root = criteriaQuery.from(User.class);
+        criteriaQuery.select(root).where(
+                cb.equal(root.get("personalInfo").get("firstname"), firstName)
+        );
+
+        return session.createQuery(criteriaQuery).list();
     }
 
     /**
