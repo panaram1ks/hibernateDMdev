@@ -30,9 +30,10 @@ public class HQLTest {
 
 //          HQL / JPQL
 //          select * from users u where u.firstname = 'Ivan';
-            Query query = session.createQuery("SELECT u FROM User u WHERE u.personalInfo.firstname = ?1", User.class); // ?1 -> parameter // unrecommended way!
-//            Query query = session.createQuery("SELECT u FROM User u WHERE u.personalInfo.firstname = :firstname", User.class); // second way
-            query.setParameter(1, "Ivan");
+//            Query query = session.createQuery("SELECT u FROM User u WHERE u.personalInfo.firstname = ?1", User.class); // ?1 -> parameter // unrecommended way!
+            Query query = session.createQuery("SELECT u FROM User u WHERE u.personalInfo.firstname = :firstname", User.class); // second way
+//            query.setParameter(1, "Ivan");
+            query.setParameter("firstname", "Ivan");
             List<User> list = query.list();
 
             transaction.commit();
