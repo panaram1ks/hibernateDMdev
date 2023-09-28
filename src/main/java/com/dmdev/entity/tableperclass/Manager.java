@@ -8,6 +8,7 @@ import com.dmdev.entity.onetomany.User;
 import com.dmdev.entity.onetoone.Profile;
 import lombok.*;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@DiscriminatorValue("manager")
 public class Manager extends User {
 
     private String projectName;
