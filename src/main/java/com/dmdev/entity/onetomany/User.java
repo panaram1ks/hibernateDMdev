@@ -14,6 +14,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@NamedQuery(name = "findUserByNameAndCompanyName", query = "SELECT u FROM User u " +
+        "JOIN u.company c " +
+        "WHERE u.personalInfo.firstname = :firstname AND c.name = :companyName " +
+        "ORDER BY u.personalInfo.lastname ASC")
+
 @Data
 @EqualsAndHashCode(of = "username")
 @ToString(exclude = {"company", "profile", "userChats" /*"chats"*/})
@@ -69,7 +75,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //        chat.getUsers().add(this);
 //    }
 
-//    @Builder.Default
+    //    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
 
