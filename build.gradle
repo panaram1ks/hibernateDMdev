@@ -13,18 +13,28 @@ java {
     targetCompatibility = JavaVersion.VERSION_16
 }
 
+sourceSets {
+    main.java.srcDirs += 'build/generated/sources/annotationProcessor/java'
+}
+//idea {
+//    module {
+//        sourceDirs += file("build/generated/sources/annotationProcessor/java/main")
+//        generatedSourceDirs += file("build/generated/sources/annotationProcessor/java/main")
+//    }
+//}
+
 dependencies {
 
     implementation 'com.vladmihalcea:hibernate-types-52:2.12.1'
-    implementation 'org.hibernate:hibernate-core:5.5.6.Final'
+    implementation 'org.hibernate:hibernate-core:5.5.7.Final'
     runtimeOnly 'org.postgresql:postgresql:42.2.23'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
+    annotationProcessor 'org.hibernate:hibernate-jpamodelgen:5.5.7.Final' //should be like Hibernate core version
+
     implementation 'org.slf4j:slf4j-api:1.7.32'
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:1.7.32'
-//    implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
-//    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+//    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:1.7.32'
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'

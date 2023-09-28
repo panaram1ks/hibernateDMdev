@@ -1,7 +1,9 @@
 package com.dmdev.dao;
 
-import com.dmdev.entity.onetomany.Payment;
-import com.dmdev.entity.onetomany.User;
+import com.dmdev.entity.PersonalInfo_;
+import com.dmdev.entity.onetomany.*;
+import com.dmdev.entity.onetomany.Company_;
+import com.dmdev.entity.onetomany.User_;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
@@ -42,9 +44,9 @@ public class UserDao {
         CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
         criteriaQuery.select(root).where(
-                cb.equal(root.get("personalInfo").get("firstname"), firstName)
+//                cb.equal(root.get("personalInfo").get("firstname"), firstName)
+                cb.equal(root.get(User_.personalInfo).get(PersonalInfo_.firstname), firstName)
         );
-
         return session.createQuery(criteriaQuery).list();
     }
 
@@ -70,9 +72,19 @@ public class UserDao {
 //    }
     // move from company to user
     public List<User> findAllByCompanyName(Session session, String companyName) {
-        return session.createQuery("SELECT u FROM Company c JOIN c.users u WHERE c.name = :companyName", User.class)
-                .setParameter("companyName", companyName)
-                .list();
+//        return session.createQuery("SELECT u FROM Company c JOIN c.users u WHERE c.name = :companyName", User.class)
+//                .setParameter("companyName", companyName)
+//                .list();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = cb.createQuery(User.class);
+        Root<Company> company = query.from(Company.class);
+        var users = company.join(Company_.users);
+
+        query.select(users).where(
+                cb.equal(company.get(Company_.name), companyName)
+        );
+
+        return session.createQuery(query).list();
     }
 
     /**

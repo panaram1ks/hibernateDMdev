@@ -3,10 +3,7 @@ package com.dmdev.entity.manytomany;
 import com.dmdev.entity.AuditableEntity;
 import com.dmdev.entity.BaseEntity;
 import com.dmdev.entity.onetomany.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -16,6 +13,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "users_chat")
 public class UserChat extends AuditableEntity<Long> {
 
@@ -31,12 +29,12 @@ public class UserChat extends AuditableEntity<Long> {
 //    @JoinColumn(name = "chat_id") // NOT REQUIRED
     private Chat chat;
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
         this.user.getUserChats().add(this);
     }
 
-    public void setChat(Chat chat){
+    public void setChat(Chat chat) {
         this.chat = chat;
         this.chat.getUserChats().add(this);
     }

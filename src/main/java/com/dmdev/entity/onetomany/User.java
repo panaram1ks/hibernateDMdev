@@ -76,7 +76,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //        chat.getUsers().add(this);
 //    }
 
-    //    @Builder.Default
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
 

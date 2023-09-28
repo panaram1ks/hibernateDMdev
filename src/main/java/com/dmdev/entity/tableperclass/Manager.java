@@ -14,10 +14,10 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Entity
 //@PrimaryKeyJoinColumn(name = "id")
 public class Manager extends BaseEntity<Long> {
 

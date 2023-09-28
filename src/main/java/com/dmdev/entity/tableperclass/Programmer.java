@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Entity
 //@PrimaryKeyJoinColumn(name = "id")
 public class Programmer extends BaseEntity<Long> {
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private Language language;
 
 //    @Builder
