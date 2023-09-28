@@ -24,7 +24,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
-@TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
+//@TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
 public class User implements Comparable<User>{
 
     @Id
@@ -37,8 +37,8 @@ public class User implements Comparable<User>{
     @Column(unique = true)
     private String username;
 
-    @Type(type = "dmdev")
-    private String info;
+//    @Type(type = "dmdev")
+//    private String info;
 
     @Enumerated(EnumType.STRING)
     private Role role;

@@ -54,7 +54,7 @@ public class Company {
     @OneToMany(mappedBy = "company", orphanRemoval = true)
     @MapKey(name = "username")
     @SortNatural
-    private Map<String, User> users = new HashMap<>();
+    private Map<String, User> users = new TreeMap<>();
 
     public void addUser(User user) {
         users.put(user.getUsername(), user);
