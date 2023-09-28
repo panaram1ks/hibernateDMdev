@@ -1,5 +1,6 @@
 package com.dmdev.entity.manytomany;
 
+import com.dmdev.entity.BaseEntity;
 import com.dmdev.entity.onetomany.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,11 +16,7 @@ import java.time.Instant;
 @Builder
 @Entity
 @Table(name = "users_chat")
-public class UserChat {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserChat extends BaseEntity<Long> {
 
     @Column(name = "created_at")
     private Instant createdAt;
