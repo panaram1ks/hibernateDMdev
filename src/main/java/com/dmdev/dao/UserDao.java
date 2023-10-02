@@ -2,15 +2,12 @@ package com.dmdev.dao;
 
 import com.dmdev.entity.PersonalInfo_;
 import com.dmdev.entity.onetomany.*;
-import com.dmdev.entity.onetomany.Company_;
-import com.dmdev.entity.onetomany.User_;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -45,7 +42,7 @@ public class UserDao {
         Root<User> root = criteriaQuery.from(User.class);
         criteriaQuery.select(root).where(
 //                cb.equal(root.get("personalInfo").get("firstname"), firstName)
-                cb.equal(root.get(User_.personalInfo).get(PersonalInfo_.firstname), firstName)
+//                cb.equal(root.get(User_.personalInfo).get(PersonalInfo_.firstname), firstName)
         );
         return session.createQuery(criteriaQuery).list();
     }
@@ -92,19 +89,53 @@ public class UserDao {
      * упорядоченные по имени сотрудника, а затем по размеру выплаты
      */
     public List<Payment> findAllPaymentsByCompanyName(Session session, String companyName) {
-        return session.createQuery("SELECT p FROM Payment p JOIN p.receiver u JOIN u.company c WHERE c.name = :companyName ORDER BY u.personalInfo.firstname, p.amount", Payment.class)
-                .setParameter("companyName", companyName)
-                .list();
+//        return session.createQuery("SELECT p FROM Payment p JOIN p.receiver u JOIN u.company c WHERE c.name = :companyName ORDER BY u.personalInfo.firstname, p.amount", Payment.class)
+//                .setParameter("companyName", companyName)
+//                .list();
+
+        var cb = session.getCriteriaBuilder();
+        CriteriaQuery<Payment> query = cb.createQuery(Payment.class);
+
+        Root<Payment> payment = query.from(Payment.class);
+        Join<Payment, User> user = payment.join(Payment_.receiver);
+        Join<User, Company> company = user.join(User_.company);
+
+        query.select(payment)
+                .where(cb.equal(company.get(Company_.name), companyName))
+                .orderBy(cb.asc(user.get(User_.personalInfo).get(PersonalInfo_.firstname)), cb.asc(payment.get(Payment_.amount)));
+
+        return session.createQuery(query).list();
     }
 
     /**
      * Возвращает среднюю зарплату сотрудника с указанными именем и фамилией
      */
     public Double findAveragePaymentAmountByFirstAndLastNames(Session session, String firstName, String lastName) {
-        return session.createQuery("SELECT avg (p.amount) FROM Payment p JOIN p.receiver u WHERE u.personalInfo.firstname = :firstName AND u.personalInfo.lastname = :lastName", Double.class)
-                .setParameter("firstName", firstName)
-                .setParameter("lastName", lastName)
-                .uniqueResult();
+//        return session.createQuery("SELECT avg (p.amount) FROM Payment p JOIN p.receiver u WHERE u.personalInfo.firstname = :firstName AND u.personalInfo.lastname = :lastName", Double.class)
+//                .setParameter("firstName", firstName)
+//                .setParameter("lastName", lastName)
+//                .uniqueResult();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Double> query = cb.createQuery(Double.class);
+        Root<Payment> payment = query.from(Payment.class);
+        Join<Payment, User> user = payment.join(Payment_.receiver);
+
+        List<Predicate> predicates = new ArrayList<>();
+        if (firstName != null) {
+            predicates.add(cb.equal(user.get(User_.personalInfo).get(PersonalInfo_.firstname), firstName));
+//            cb.equal(user.get(User_.personalInfo).get(PersonalInfo_.lastname), lastName);
+        }
+        if (lastName != null) {
+            predicates.add(cb.equal(user.get(User_.personalInfo).get(PersonalInfo_.lastname), lastName));
+        }
+
+
+        query.select(cb.avg(payment.get(Payment_.amount))).where(
+                predicates.toArray(Predicate[]::new)
+        );
+
+        return session.createQuery(query).uniqueResult();
     }
 
     /**
