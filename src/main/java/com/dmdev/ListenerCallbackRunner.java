@@ -17,7 +17,7 @@ public class ListenerCallbackRunner {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
 
-            TestDataImporter.importData(sessionFactory);
+//            TestDataImporter.importData(sessionFactory);
             session.beginTransaction();
 
             Payment payment = session.find(Payment.class, 1L);
