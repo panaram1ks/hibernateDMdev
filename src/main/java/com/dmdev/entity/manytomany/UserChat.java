@@ -3,6 +3,7 @@ package com.dmdev.entity.manytomany;
 import com.dmdev.entity.AuditableEntity;
 import com.dmdev.entity.BaseEntity;
 import com.dmdev.entity.onetomany.User;
+import com.dmdev.listener.UserChatListener;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.time.Instant;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users_chat")
+@EntityListeners(UserChatListener.class)
 public class UserChat extends AuditableEntity<Long> {
 
     @Id

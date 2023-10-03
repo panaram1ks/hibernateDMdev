@@ -38,17 +38,19 @@ public class Payment extends AuditableEntity<Long> implements BaseEntityInterfac
     @Version
     private Long version;
 
-    @PrePersist
-    public void prePersist(){
-        setCreatedAt(Instant.now());
-//        setAddedBy();
-    }
 
-    @PreUpdate
-    public void preUpdate(){
-        setUpdatedAt(Instant.now());
-//        setUpdatedBy(); fill from security context
-    }
+    // It's bad control callbacks into entity that's why we should use Listeners
+//    @PrePersist
+//    public void prePersist(){
+//        setCreatedAt(Instant.now());
+////        setAddedBy();
+//    }
+//
+//    @PreUpdate
+//    public void preUpdate(){
+//        setUpdatedAt(Instant.now());
+////        setUpdatedBy(); fill from security context
+//    }
 
 
 }

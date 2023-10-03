@@ -41,4 +41,7 @@ public class Chat implements BaseEntityInterface<Long> {
     @OneToMany(mappedBy = "chat")
     private List<UserChat> userChats = new ArrayList<>();
 
+    @Builder.Default
+    private Integer count = 0;
+
 }
