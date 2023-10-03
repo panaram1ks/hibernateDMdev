@@ -19,4 +19,10 @@ public abstract class AuditableEntity<T extends Serializable> implements BaseEnt
     @Column(name = "added_by")
     private String addedBy;
 
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
 }

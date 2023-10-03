@@ -1,6 +1,7 @@
 package com.dmdev.entity.onetomany;
 
 
+import com.dmdev.entity.AuditableEntity;
 import com.dmdev.entity.BaseEntityInterface;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +22,7 @@ import javax.persistence.*;
 //@OptimisticLocking(type = OptimisticLockType.VERSION)
 //@OptimisticLocking(type = OptimisticLockType.ALL)
 //@DynamicUpdate
-public class Payment implements BaseEntityInterface<Long> {
+public class Payment extends AuditableEntity<Long> implements BaseEntityInterface<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +37,18 @@ public class Payment implements BaseEntityInterface<Long> {
 
     @Version
     private Long version;
+
+    @PrePersist
+    public void prePersist(){
+        setCreatedAt(Instant.now());
+//        setAddedBy();
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        setUpdatedAt(Instant.now());
+//        setUpdatedBy(); fill from security context
+    }
 
 
 }

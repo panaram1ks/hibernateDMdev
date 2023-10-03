@@ -29,9 +29,6 @@ public class PessimisticLockRunner {
 //           session.get();
             payment.setAmount(payment.getAmount() + 10);
 
-            Payment theSamePayment = session1.find(Payment.class, 1L);
-            theSamePayment.setAmount(theSamePayment.getAmount() + 20);
-
             session1.getTransaction().commit();
             session.getTransaction().commit();
         }
