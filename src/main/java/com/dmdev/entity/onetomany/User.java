@@ -92,7 +92,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @Builder.Default
 //    @BatchSize(size = 3)
-    @Fetch(FetchMode.SUBSELECT)
+//    @Fetch(FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<>();
 

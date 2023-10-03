@@ -98,22 +98,37 @@ public class UserDao {
      * упорядоченные по имени сотрудника, а затем по размеру выплаты
      */
     public List<Payment> findAllPaymentsByCompanyName(Session session, String companyName) {
-        return session.createQuery("SELECT p FROM Payment p JOIN p.receiver u JOIN u.company c WHERE c.name = :companyName ORDER BY u.personalInfo.firstname, p.amount", Payment.class)
-                .setParameter("companyName", companyName)
-                .list();
+                    // HQL
+//                  return session.createQuery("SELECT p FROM Payment p JOIN p.receiver u JOIN u.company c WHERE c.name = :companyName ORDER BY u.personalInfo.firstname, p.amount", Payment.class)
+//                .setParameter("companyName", companyName)
+//                .list();
 
-//        var cb = session.getCriteriaBuilder();
-//        CriteriaQuery<Payment> query = cb.createQuery(Payment.class);
-//
-//        Root<Payment> payment = query.from(Payment.class);
+        // Hibernate Criteria
+        var cb = session.getCriteriaBuilder();
+        CriteriaQuery<Payment> query = cb.createQuery(Payment.class);
+
+        Root<Payment> payment = query.from(Payment.class);
 //        Join<Payment, User> user = payment.join(Payment_.receiver);
-//        Join<User, Company> company = user.join(User_.company);
-//
-//        query.select(payment)
-//                .where(cb.equal(company.get(Company_.name), companyName))
+        Join<Payment, User> user = payment.join("receiver");
+        payment.fetch("receiver");
+        Join<User, Company> company = user.join("company");
+
+        query.select(payment)
+                .where(cb.equal(company.get("name"), companyName))
 //                .orderBy(cb.asc(user.get(User_.personalInfo).get(PersonalInfo_.firstname)), cb.asc(payment.get(Payment_.amount)));
-//
-//        return session.createQuery(query).list();
+                .orderBy(cb.asc(user.get("personalInfo").get("firstname")), cb.asc(payment.get("amount")));
+
+        return session.createQuery(query).list();
+
+        // QueryDsl
+//        return new JPAQuery<Payment>(session)
+//                .select(payment)
+//                .from(payment)
+//                .join(payment.receiver, user).fetchJoin()
+//                .join(user.company, company)
+//                .where(company.name.eq(companyName))
+//                .orderBy(user.personalInfo.firstname.asc(), payment.amount.asc() )
+//                .fetch();
     }
 
     /**
