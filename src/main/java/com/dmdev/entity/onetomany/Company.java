@@ -2,6 +2,7 @@ package com.dmdev.entity.onetomany;
 
 import com.dmdev.entity.LocaleInfo;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
 
@@ -15,6 +16,7 @@ import java.util.*;
 @EqualsAndHashCode(of = "name")
 @ToString(exclude = "users")
 @Entity
+@BatchSize(size = 3)
 public class Company {
 
     @Id
