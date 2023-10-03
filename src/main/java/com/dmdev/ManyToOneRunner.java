@@ -20,9 +20,10 @@ public class ManyToOneRunner {
 //            User user = session.get(User.class, 1L);
 //            System.out.println(user.getPayments().size());
 //            System.out.println(user.getCompany().getName());
-            List<User> users = session.createQuery("select u from User u ", User.class)
+            List<User> users = session.createQuery("select u from User u where 1 = 1", User.class)
                     .list();
             users.forEach(user -> System.out.println(user.getPayments().size()));
+            users.forEach(user -> System.out.println(user.getCompany().getName()));
 
             transaction.commit();
         }

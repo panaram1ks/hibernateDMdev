@@ -7,11 +7,12 @@ import com.dmdev.entity.manytomany.UserChat;
 import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -90,7 +91,8 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
 
     @Builder.Default
-    @BatchSize(size = 3)
+//    @BatchSize(size = 3)
+    @Fetch(FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<>();
 
