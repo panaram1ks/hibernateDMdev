@@ -16,14 +16,16 @@ public class ManyToOneRunner {
              Session session = sessionFactory.openSession()) {
 //            TestDataImporter.importData(sessionFactory);
             Transaction transaction = session.beginTransaction();
-
-//            User user = session.get(User.class, 1L);
+//            session.enableFetchProfile("withCompany"); // fetch profile works only with separate entity
+            session.enableFetchProfile("withCompanyAndPayment"); // fetch profile works only with separate entity
+            User user = session.get(User.class, 1L);
 //            System.out.println(user.getPayments().size());
-//            System.out.println(user.getCompany().getName());
-            List<User> users = session.createQuery("select u from User u join fetch u.payments join fetch u.company where 1 = 1", User.class)
-                    .list();
-            users.forEach(user -> System.out.println(user.getPayments().size()));
-            users.forEach(user -> System.out.println(user.getCompany().getName()));
+            System.out.println(user.getCompany().getName());
+
+//            List<User> users = session.createQuery("select u from User u join fetch u.payments join fetch u.company where 1 = 1", User.class)
+//                    .list();
+//            users.forEach(user -> System.out.println(user.getPayments().size()));
+//            users.forEach(user -> System.out.println(user.getCompany().getName()));
 
             transaction.commit();
         }

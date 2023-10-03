@@ -35,6 +35,13 @@ import static com.dmdev.util.StringUtils.SPACE;
 @Table(name = "users", schema = "public")
 @TypeDef(name = "dmdev", typeClass = JsonBinaryType.class)
 //@Inheritance(strategy = InheritanceType.JOINED)
+@FetchProfile(name = "withCompany", fetchOverrides = {
+        @FetchProfile.FetchOverride(entity = User.class, association = "company", mode = FetchMode.JOIN)
+})
+@FetchProfile(name = "withCompanyAndPayment", fetchOverrides = {
+        @FetchProfile.FetchOverride(entity = User.class, association = "company", mode = FetchMode.JOIN),
+        @FetchProfile.FetchOverride(entity = User.class, association = "payments", mode = FetchMode.JOIN)
+})
 public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @Id
@@ -54,7 +61,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
     private Role role;
 
     // Bidirectional relation(when we already have ManyToOne relation) if we don't have company here it's Onedirectional relation
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")// not required
     private Company company;
 
