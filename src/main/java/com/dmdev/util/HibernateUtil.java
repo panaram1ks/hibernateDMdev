@@ -26,11 +26,11 @@ public class HibernateUtil {
     }
 
     private static void registerListeners(SessionFactory sessionFactory){
-        SessionFactoryImpl sessionFactoryImpl = buildSessionFactory().unwrap(SessionFactoryImpl.class);
+        SessionFactoryImpl sessionFactoryImpl = sessionFactory.unwrap(SessionFactoryImpl.class);
         EventListenerRegistry listenerRegistry = sessionFactoryImpl.getServiceRegistry().getService(EventListenerRegistry.class);
         var auditTableListener = new AuditTableListener();
         listenerRegistry.appendListeners(EventType.PRE_INSERT, auditTableListener );
-        listenerRegistry.appendListeners(EventType.PRE_INSERT, auditTableListener );
+        listenerRegistry.appendListeners(EventType.PRE_DELETE, auditTableListener );
     }
 
     public static Configuration buildConfiguration() {
