@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
@@ -16,7 +17,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@OptimisticLocking(type = OptimisticLockType.VERSION)
+//@OptimisticLocking(type = OptimisticLockType.VERSION)
+@OptimisticLocking(type = OptimisticLockType.ALL)
+@DynamicUpdate
 public class Payment implements BaseEntityInterface<Long> {
 
     @Id
@@ -30,8 +33,8 @@ public class Payment implements BaseEntityInterface<Long> {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
-    @Version
-    private Long version;
+//    @Version
+//    private Long version;
 
 
 }
