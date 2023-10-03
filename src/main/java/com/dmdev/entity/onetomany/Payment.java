@@ -18,8 +18,8 @@ import javax.persistence.*;
 @Builder
 @Entity
 //@OptimisticLocking(type = OptimisticLockType.VERSION)
-@OptimisticLocking(type = OptimisticLockType.ALL)
-@DynamicUpdate
+//@OptimisticLocking(type = OptimisticLockType.ALL)
+//@DynamicUpdate
 public class Payment implements BaseEntityInterface<Long> {
 
     @Id
@@ -33,8 +33,8 @@ public class Payment implements BaseEntityInterface<Long> {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
-//    @Version
-//    private Long version;
+    @Version
+    private Long version;
 
 
 }
