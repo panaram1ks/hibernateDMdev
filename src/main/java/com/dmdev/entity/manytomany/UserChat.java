@@ -21,11 +21,11 @@ public class UserChat extends AuditableEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name ="user_id") // NOT REQUIRED
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "chat_id") // NOT REQUIRED
     private Chat chat;
 
