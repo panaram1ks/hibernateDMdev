@@ -12,7 +12,9 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.dmdev.util.StringUtils.SPACE;
 
@@ -54,12 +56,12 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
     @JoinColumn(name = "company_id")// not required
     private Company company;
 
-    @OneToOne(mappedBy = "user",
-            cascade = CascadeType.ALL, // CascadeType.ALL -> profile will automatic save if user save!
-            fetch = FetchType.LAZY // doesn't work because Hibernate should do request to know id of profile
-//            , optional = false
-    ) // optional = false make LazyInitialization not fetchType
-    private Profile profile;
+//    @OneToOne(mappedBy = "user",
+//            cascade = CascadeType.ALL, // CascadeType.ALL -> profile will automatic save if user save!
+//            fetch = FetchType.LAZY // doesn't work because Hibernate should do request to know id of profile
+////            , optional = false
+//    ) // optional = false make LazyInitialization not fetchType
+//    private Profile profile;
 
 
     // First var
@@ -77,7 +79,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //    }
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<UserChat> userChats = new ArrayList<>();
 
     @Override
@@ -87,8 +89,8 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
 
     @Builder.Default
-    @OneToMany(mappedBy = "receiver")
-    private List<Payment> payments = new ArrayList<>();
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER)
+    private Set<Payment> payments = new HashSet<>();
 
     public String fullName() {
         return getPersonalInfo().getFirstname() + SPACE + getPersonalInfo().getLastname();

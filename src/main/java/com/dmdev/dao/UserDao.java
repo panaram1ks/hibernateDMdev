@@ -2,6 +2,7 @@ package com.dmdev.dao;
 
 //import com.dmdev.entity.PersonalInfo_;
 import com.dmdev.entity.onetomany.*;
+import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
@@ -19,14 +20,23 @@ public class UserDao {
      * Возвращает всех сотрудников
      */
     public List<User> findAll(Session session) {
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-        Root<User> user = criteria.from(User.class);
-        criteria.select(user);
 
-        return session.createQuery(criteria).list();
+        // Hibernate criteria
+//        CriteriaBuilder cb = session.getCriteriaBuilder();
+//        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+//        Root<User> user = criteria.from(User.class);
+//        criteria.select(user);
+//        return session.createQuery(criteria).list();
 
-//        return session.createQuery("SELECT u FROM User u", User.class).list();
+        // HQL
+        return session.createQuery("SELECT u FROM User u", User.class).list();
+
+
+        // QueryDsl
+//        return  new JPAQuery<User>(session)
+//                .select(QUser.user)
+//                .from(QUser.user)
+//                .fetch();
     }
 
     /**
@@ -69,19 +79,18 @@ public class UserDao {
 //    }
     // move from company to user
     public List<User> findAllByCompanyName(Session session, String companyName) {
-//        return session.createQuery("SELECT u FROM Company c JOIN c.users u WHERE c.name = :companyName", User.class)
-//                .setParameter("companyName", companyName)
-//                .list();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> query = cb.createQuery(User.class);
-        Root<Company> company = query.from(Company.class);
-        var users = company.join(Company_.users);
+        return session.createQuery("SELECT u FROM Company c JOIN c.users u WHERE c.name = :companyName", User.class)
+                .setParameter("companyName", companyName)
+                .list();
 
-        query.select(users).where(
-                cb.equal(company.get(Company_.name), companyName)
-        );
-
-        return session.createQuery(query).list();
+//        CriteriaBuilder cb = session.getCriteriaBuilder();
+//        CriteriaQuery<User> query = cb.createQuery(User.class);
+//        Root<Company> company = query.from(Company.class);
+//        var users = company.join(Company_.users);
+//        query.select(users).where(
+//                cb.equal(company.get(Company_.name), companyName)
+//        );
+//        return session.createQuery(query).list();
     }
 
     /**
