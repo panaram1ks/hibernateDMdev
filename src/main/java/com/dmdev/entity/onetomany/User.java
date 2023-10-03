@@ -7,6 +7,7 @@ import com.dmdev.entity.manytomany.UserChat;
 import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -79,7 +80,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //    }
 
     @Builder.Default
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserChat> userChats = new ArrayList<>();
 
     @Override
@@ -89,7 +90,8 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
 
     @Builder.Default
-    @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER)
+    @BatchSize(size = 3)
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private Set<Payment> payments = new HashSet<>();
 
     public String fullName() {
