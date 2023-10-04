@@ -2,6 +2,7 @@ package com.dmdev;
 
 import com.dmdev.entity.onetomany.Payment;
 import com.dmdev.util.HibernateUtil;
+import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.envers.AuditReader;
@@ -39,6 +40,7 @@ public class HibernateEnversRunner {
                         .getResultList();
                 Payment oldPayment = auditReader.find(Payment.class, 1L, new Date(1696399409386l));
                 System.out.println();
+                session2.replicate(oldPayment, ReplicationMode.OVERWRITE); // overwrite payment in database to old payment object condition
 
                 session2.getTransaction().commit();
             }
