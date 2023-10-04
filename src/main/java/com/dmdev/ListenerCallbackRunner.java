@@ -22,11 +22,11 @@ public class ListenerCallbackRunner {
                      .openSession()) {
 
             TestDataImporter.importData(sessionFactory);
-            session.beginTransaction();
 
+
+            session.beginTransaction();
             Payment payment = session.find(Payment.class, 1L);
             payment.setAmount(800);
-
             session.getTransaction().commit();
         }
     }

@@ -21,7 +21,7 @@ public class HibernateUtil {
         configuration.configure();
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
-        registerListeners(sessionFactory);
+//        registerListeners(sessionFactory);
 
         return sessionFactory;
     }
@@ -40,7 +40,7 @@ public class HibernateUtil {
         configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
         configuration.addAttributeConverter(new BirthdayConverter());
         configuration.registerTypeOverride(new JsonBinaryType());
-        configuration.setInterceptor(new GlobalInterceptor());
+//        configuration.setInterceptor(new GlobalInterceptor());
         return configuration;
     }
 

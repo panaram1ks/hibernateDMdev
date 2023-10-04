@@ -2,12 +2,15 @@ package com.dmdev.entity.onetomany;
 
 import com.dmdev.entity.LocaleInfo;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Data
 @Builder
@@ -16,7 +19,8 @@ import java.util.*;
 @EqualsAndHashCode(of = "name")
 @ToString(exclude = "users")
 @Entity
-@BatchSize(size = 3)
+//@BatchSize(size = 3)
+@Audited
 public class Company {
 
     @Id
@@ -52,6 +56,7 @@ public class Company {
 //    @SortNatural
 //    private SortedSet<User> users = new TreeSet<>();
 
+    @NotAudited
     @Builder.Default
     @OneToMany(mappedBy = "company", orphanRemoval = true)
     @MapKey(name = "username")
@@ -64,6 +69,7 @@ public class Company {
         user.setCompany(this);
     }
 
+    @NotAudited
     @Builder.Default
     @ElementCollection
 //    @CollectionTable(name = "company_locale") // like @Table but for collections
