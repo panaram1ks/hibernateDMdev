@@ -1,5 +1,6 @@
 package com.dmdev.entity.onetomany;
 
+import com.dmdev.entity.BaseEntityInterface;
 import com.dmdev.entity.LocaleInfo;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -23,7 +24,7 @@ import java.util.TreeMap;
 //@BatchSize(size = 3)
 @Audited
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Companies")
-public class Company {
+public class Company implements BaseEntityInterface<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

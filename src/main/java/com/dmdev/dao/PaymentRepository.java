@@ -3,9 +3,9 @@ package com.dmdev.dao;
 import com.dmdev.entity.onetomany.Payment;
 import org.hibernate.SessionFactory;
 
-public class PaymentDao extends BaseDao<Long, Payment> {
+public class PaymentRepository extends RepositoryBase<Long, Payment> {
 
-    public PaymentDao(SessionFactory sessionFactory){
+    public PaymentRepository(SessionFactory sessionFactory){
         super(Payment.class, sessionFactory);
     }
 }

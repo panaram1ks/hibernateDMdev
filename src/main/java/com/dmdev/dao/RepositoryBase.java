@@ -1,7 +1,6 @@
 package com.dmdev.dao;
 
 import com.dmdev.entity.BaseEntityInterface;
-import com.dmdev.entity.onetomany.Payment;
 import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public abstract class BaseDao<K extends Serializable, E extends BaseEntityInterface<K>>  implements Dao<K, E> {
+public abstract class RepositoryBase<K extends Serializable, E extends BaseEntityInterface<K>>  implements Dao<K, E> {
 
     private final Class<E> clazz;
     private final SessionFactory sessionFactory;
