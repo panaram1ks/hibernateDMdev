@@ -3,6 +3,7 @@ package com.dmdev.entity;
 import com.dmdev.listener.AuditListener;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -14,6 +15,7 @@ import java.time.Instant;
 @Setter
 @MappedSuperclass
 @EntityListeners(value = {AuditListener.class})
+//@Audited
 public abstract class AuditableEntity<T extends Serializable> implements BaseEntityInterface<T>{
 
     @Column(name = "created_at")
