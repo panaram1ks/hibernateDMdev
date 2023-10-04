@@ -8,6 +8,8 @@ import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
 import org.hibernate.annotations.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -45,6 +47,7 @@ import static com.dmdev.util.StringUtils.SPACE;
 @NamedEntityGraph(name = "WithCompanyAndChat", attributeNodes = {@NamedAttributeNode("company"),@NamedAttributeNode(value = "userChats", subgraph = "chats")},
         subgraphs = {@NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))}
 )
+@Audited
 public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @Id
@@ -90,6 +93,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //        chat.getUsers().add(this);
 //    }
 
+    @NotAudited
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserChat> userChats = new ArrayList<>();
@@ -100,6 +104,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
     }
 
 
+    @NotAudited
     @Builder.Default
 //    @BatchSize(size = 3)
 //    @Fetch(FetchMode.SUBSELECT)

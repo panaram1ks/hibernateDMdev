@@ -21,7 +21,8 @@ import javax.persistence.*;
 //@OptimisticLocking(type = OptimisticLockType.VERSION)
 //@OptimisticLocking(type = OptimisticLockType.ALL)
 //@DynamicUpdate
-@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+//@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+@Audited
 public class Payment extends AuditableEntity<Long> implements BaseEntityInterface<Long> {
 
     @Id
