@@ -6,9 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditEntity;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 public class HibernateEnversRunner {
 
@@ -28,6 +30,13 @@ public class HibernateEnversRunner {
                 session2.beginTransaction();
 
                 AuditReader auditReader = AuditReaderFactory.get(session2);
+                List resultList = auditReader.createQuery()
+                        .forEntitiesAtRevision(Payment.class, 400l)
+                        .add(AuditEntity.property("amount").ge(450))
+                        .add(AuditEntity.property("id").ge(6l))
+//                        .addProjection(AuditEntity.property("amount"))
+//                        .addProjection(AuditEntity.property("id"))
+                        .getResultList();
                 Payment oldPayment = auditReader.find(Payment.class, 1L, new Date(1696399409386l));
                 System.out.println();
 
