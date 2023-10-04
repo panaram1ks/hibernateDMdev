@@ -28,6 +28,9 @@ configurations {
 
 
 dependencies {
+    // hibernate cache 2 level
+    implementation 'org.hibernate:hibernate-jcache:5.5.7.Final' // only interfaces
+    implementation 'org.ehcache:ehcache:3.9.7' // realization  of interfaces 2nd level cache
 
     implementation 'com.vladmihalcea:hibernate-types-52:2.12.1'
     implementation 'org.hibernate:hibernate-core:5.5.7.Final'

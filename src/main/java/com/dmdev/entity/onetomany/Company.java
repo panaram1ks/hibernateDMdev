@@ -2,6 +2,7 @@ package com.dmdev.entity.onetomany;
 
 import com.dmdev.entity.LocaleInfo;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SortNatural;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -21,6 +22,7 @@ import java.util.TreeMap;
 @Entity
 //@BatchSize(size = 3)
 @Audited
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Company {
 
     @Id

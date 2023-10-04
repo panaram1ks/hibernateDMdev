@@ -8,6 +8,7 @@ import com.dmdev.entity.onetoone.Profile;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.*;
 import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
@@ -48,6 +49,7 @@ import static com.dmdev.util.StringUtils.SPACE;
         subgraphs = {@NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))}
 )
 @Audited
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Comparable<User>, BaseEntityInterface<Long> {
 
     @Id
@@ -93,6 +95,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //        chat.getUsers().add(this);
 //    }
 
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @NotAudited
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

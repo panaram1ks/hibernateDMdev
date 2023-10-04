@@ -5,6 +5,7 @@ import com.dmdev.entity.BaseEntity;
 import com.dmdev.entity.onetomany.User;
 import com.dmdev.listener.UserChatListener;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -17,6 +18,7 @@ import java.time.Instant;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users_chat")
 @EntityListeners(UserChatListener.class)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserChat extends AuditableEntity<Long> {
 
     @Id
