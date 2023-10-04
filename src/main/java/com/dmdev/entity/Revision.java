@@ -1,5 +1,6 @@
 package com.dmdev.entity;
 
+import com.dmdev.listener.MyRevisionListener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@RevisionEntity // Only one revision entity able to exist in project !
+@RevisionEntity(MyRevisionListener.class) // Only one revision entity able to exist in project !
 public class Revision {
 
     //  @RevisionNumber, @RevisionTimestamp - two general field in revision and it required !
@@ -28,5 +29,8 @@ public class Revision {
 
     @RevisionTimestamp
     private Long timestamp;
+
+
+    private String username;
 
 }
