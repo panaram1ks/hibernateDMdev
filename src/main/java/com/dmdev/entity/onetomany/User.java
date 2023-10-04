@@ -95,7 +95,7 @@ public class User implements Comparable<User>, BaseEntityInterface<Long> {
 //        chat.getUsers().add(this);
 //    }
 
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Users")
     @NotAudited
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

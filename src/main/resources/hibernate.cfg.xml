@@ -17,6 +17,7 @@
 
         <property name="hibernate.cache.use_second_level_cache">true</property>
         <property name="hibernate.cache.region_prefix.factory"></property>
+        <property name="hibernate.javax.cache.uri">/ehcache-config.xml</property>
 
         <!--        second var mapping entity for Hibernate-->
         <!--        <mapping class="com.dmdev.entity.User"/>-->

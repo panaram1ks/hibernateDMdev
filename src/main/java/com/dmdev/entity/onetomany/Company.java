@@ -22,7 +22,7 @@ import java.util.TreeMap;
 @Entity
 //@BatchSize(size = 3)
 @Audited
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Companies")
 public class Company {
 
     @Id
