@@ -1,9 +1,11 @@
 package com.dmdev.service;
 
 import com.dmdev.dao.UserRepository;
+import com.dmdev.dto.UserCreateDto;
 import com.dmdev.dto.UserReadDto;
 import com.dmdev.entity.onetomany.User;
 import com.dmdev.mapper.Mapper;
+import com.dmdev.mapper.UserCreateMapper;
 import com.dmdev.mapper.UserReadMapper;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.graph.GraphSemantic;
@@ -16,6 +18,15 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
+
+    private final UserCreateMapper userCreateMapper;
+
+    public Long create(UserCreateDto userDto){
+        // validation
+        // map
+        User userEntity = userCreateMapper.mapFrom(userDto);
+        return userRepository.save(userEntity).getId();
+    }
 
 
     public <T> Optional<T> findById(Long id, Mapper<User, T> mapper) {

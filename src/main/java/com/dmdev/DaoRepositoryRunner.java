@@ -32,7 +32,7 @@ public class DaoRepositoryRunner {
             UserRepository userRepository = new UserRepository(proxySession);
             CompanyReadMapper companyReadMapper = new CompanyReadMapper();
             UserReadMapper userReadMapper = new UserReadMapper(companyReadMapper);
-            UserService userService = new UserService(userRepository, userReadMapper);
+//            UserService userService = new UserService(userRepository, userReadMapper);
 
 //            PaymentRepository paymentRepository = new PaymentRepository(sessionFactory);
 //            PaymentRepository paymentRepository = new PaymentRepository(proxySession);
