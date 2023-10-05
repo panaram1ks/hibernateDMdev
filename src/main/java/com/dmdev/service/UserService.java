@@ -7,6 +7,7 @@ import com.dmdev.entity.onetomany.User;
 import com.dmdev.mapper.Mapper;
 import com.dmdev.mapper.UserCreateMapper;
 import com.dmdev.mapper.UserReadMapper;
+import com.dmdev.validation.UpdateCheck;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.graph.GraphSemantic;
 
@@ -29,7 +30,7 @@ public class UserService {
         // map
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         Validator validator = validatorFactory.getValidator(); // Threadsafe, enough only one for all application
-        Set<ConstraintViolation<UserCreateDto>> validationResult = validator.validate(userDto);
+        Set<ConstraintViolation<UserCreateDto>> validationResult = validator.validate(userDto, UpdateCheck.class); //  UpdateCheck if we want use groups
         if(!validationResult.isEmpty()){
             throw new ConstraintViolationException(validationResult);
         }
