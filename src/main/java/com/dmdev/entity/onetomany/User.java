@@ -30,7 +30,7 @@ import static com.dmdev.util.StringUtils.SPACE;
 
 @Data
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"company", "profile", "userChats" /*"chats"*/})
+@ToString(exclude = {"company", "profile", "userChats", "payments" /*"chats"*/})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

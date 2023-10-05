@@ -21,6 +21,9 @@
         <property name="hibernate.cache.region_prefix.factory"></property>
         <property name="hibernate.javax.cache.uri">/ehcache-config.xml</property>
 
+<!--   (thread, managed, jta)     strategy open and get sessionContext and connection-->
+        <property name="current_session_context_class">thread</property>
+
         <!--        second var mapping entity for Hibernate-->
         <!--        <mapping class="com.dmdev.entity.User"/>-->
         <!--        <mapping class="com.dmdev.entity.Company"/>-->

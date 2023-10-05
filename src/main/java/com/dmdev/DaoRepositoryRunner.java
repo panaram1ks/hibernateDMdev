@@ -6,20 +6,31 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 public class DaoRepositoryRunner {
 
     @Transactional
     public static void main(String[] args) {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
-            try (Session session = sessionFactory.openSession()) {
-                session.beginTransaction();
+//            Session session = sessionFactory.getCurrentSession();
 
-                PaymentRepository paymentRepository = new PaymentRepository(sessionFactory);
-                paymentRepository.findById(1L).ifPresent(System.out::println);
+            Session proxySession = (Session) Proxy.newProxyInstance(
+                    SessionFactory.class.getClassLoader(),
+                    new Class[]{Session.class},
+                    (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1)
+            );
+//            session.beginTransaction();
+            proxySession.beginTransaction();
 
-                session.getTransaction().commit();
-            }
+//            PaymentRepository paymentRepository = new PaymentRepository(sessionFactory);
+            PaymentRepository paymentRepository = new PaymentRepository(proxySession);
+            paymentRepository.findById(1L).ifPresent(System.out::println);
+
+//            session.getTransaction().commit();
+            proxySession.getTransaction().commit();
 
         }
     }
