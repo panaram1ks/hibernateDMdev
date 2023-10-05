@@ -28,6 +28,12 @@ configurations {
 
 
 dependencies {
+
+    // validator
+    implementation 'org.hibernate:hibernate-validator:6.0.22.Final' // 1.0 specification
+    implementation 'javax.el:javax.el-api:3.0.0'
+    implementation 'org.glassfish:javax.el:3.0.0'
+
     // hibernate cache 2 level
     implementation 'org.hibernate:hibernate-jcache:5.5.7.Final' // only interfaces
     implementation 'org.ehcache:ehcache:3.9.7' // realization  of interfaces 2nd level cache

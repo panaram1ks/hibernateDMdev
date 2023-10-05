@@ -61,9 +61,9 @@ public class ServiceRunner {
                     PersonalInfo.builder()
                             .firstname("Lisa22")
                             .lastname("Stepanova")
-                            .birthDate(LocalDate.now())
+//                            .birthDate(LocalDate.now())
                             .build(),
-                    "lisa22@gmail.com",
+                    "lisa3@gmail.com",
                     null,
                     Role.USER,
                     1L

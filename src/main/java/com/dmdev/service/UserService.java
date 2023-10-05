@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.graph.GraphSemantic;
 
 import javax.transaction.Transactional;
+import javax.validation.*;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -25,6 +27,13 @@ public class UserService {
     public Long create(UserCreateDto userDto){
         // validation
         // map
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator(); // Threadsafe, enough only one for all application
+        Set<ConstraintViolation<UserCreateDto>> validationResult = validator.validate(userDto);
+        if(!validationResult.isEmpty()){
+            throw new ConstraintViolationException(validationResult);
+        }
+
         User userEntity = userCreateMapper.mapFrom(userDto);
         return userRepository.save(userEntity).getId();
     }
