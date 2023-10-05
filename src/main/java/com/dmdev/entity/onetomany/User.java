@@ -48,6 +48,7 @@ import static com.dmdev.util.StringUtils.SPACE;
 @NamedEntityGraph(name = "WithCompanyAndChat", attributeNodes = {@NamedAttributeNode("company"),@NamedAttributeNode(value = "userChats", subgraph = "chats")},
         subgraphs = {@NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))}
 )
+@NamedEntityGraph(name = "WithCompany", attributeNodes = {@NamedAttributeNode("company")})
 @Audited
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Comparable<User>, BaseEntityInterface<Long> {
